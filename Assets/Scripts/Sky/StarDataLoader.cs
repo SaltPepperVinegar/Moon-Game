@@ -32,12 +32,16 @@ namespace Sky
             // Number of bytes per star entry
             int star_data_size = br.ReadInt32();    
 
-            bool from_j2000;
+            int year; 
             // number of star is negative if the coordinates are j2000 (from 2000) rather than b1950(from 1950)
-            if (num_stars < 0)
+            if (num_stars < 0 || num_magnitudes == -1)
             {
-                from_j2000 = true;
-                num_stars = -num_stars;
+                year = 2000;
+                num_stars = Math.Abs(num_stars); 
+            }            
+            else
+            {
+                year = 1950; 
             }
 
             for (int i = 0; i < num_stars; i++)
@@ -56,7 +60,7 @@ namespace Sky
                 float ra_proper_motion = br.ReadSingle();
                 // Dec. proper motion (radians per year) [optional]
                 float dec_proper_motion = br.ReadSingle();
-                Star star = new(catalog_number, right_ascension, declination, spectral_type, spectral_index, magnitude, ra_proper_motion, dec_proper_motion);
+                Star star = new(catalog_number, right_ascension, declination, spectral_type, spectral_index, magnitude, ra_proper_motion, dec_proper_motion, year);
                 stars.Add(star);
             }
 

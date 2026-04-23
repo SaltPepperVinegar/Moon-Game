@@ -18,10 +18,11 @@ namespace Sky
         private readonly float ra_proper_motion;
         private readonly float dec_proper_motion;
 
+        private readonly int year; 
 
         // Constructor
         public Star(float catalog_number, double right_ascension, double declination, byte spectral_type,
-                    byte spectral_index, short magnitude, float ra_proper_motion, float dec_proper_motion)
+                    byte spectral_index, short magnitude, float ra_proper_motion, float dec_proper_motion, int year)
         {
             this.catalog_number = catalog_number;
             // Save the location parameters.
@@ -41,6 +42,21 @@ namespace Sky
         // Get the starting position shown in the file.
         public Vector3 GetBasePosition()
         {
+            return CalculatePosition(this.right_ascension, this.declination);
+        }
+
+        public Vector3 GetPosition(int year)
+        {
+            float yearsPassed = year - this.year; 
+
+            // Adjust RA and Dec by the proper motion
+            double adjustedRA = this.right_ascension + (this.ra_proper_motion * yearsPassed);
+            double adjustedDec = this.declination + (this.dec_proper_motion * yearsPassed);
+
+            return CalculatePosition(adjustedRA, adjustedDec);
+        }
+        public static Vector3  CalculatePosition(double right_ascension, double declination)
+        {
             // Place stars on a cylinder using 2D trigonometry.
             double x = System.Math.Cos(right_ascension);
             double y = System.Math.Sin(declination);
@@ -55,7 +71,6 @@ namespace Sky
             // Return as float
             return new((float)x, (float)y, (float)z);
         }
-
         private Color SetColour(byte spectral_type, byte spectral_index)
         {
             Color IntColour(int r, int g, int b)
@@ -119,6 +134,8 @@ namespace Sky
             // Linear isn't factually accurate, but the effect is sufficient.
             return 1 - Mathf.InverseLerp(-146, 796, magnitude);
         }
+
+
     }
 
 }
