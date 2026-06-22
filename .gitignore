@@ -56,3 +56,5 @@ opencode.json
 tools/
 .opencode/
 docs/
+
+AGENTS.md
