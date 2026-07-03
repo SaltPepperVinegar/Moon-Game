@@ -52,9 +52,17 @@ Thumbs.db
 
 .vscode/
 
-opencode.json
-tools/
-.opencode/
-docs/
-
+# Local agent/private guidance
 AGENTS.md
+
+# Project AI configuration: keep source config, ignore generated/local payloads
+.opencode/*
+!.opencode/config.json
+!.opencode/mcp_config.json
+
+# Python generated files
+__pycache__/
+*.py[cod]
+
+# Recovered conversation archives are useful locally but too noisy for source control
+docs/archive/

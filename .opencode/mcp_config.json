@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "scaffold_domain": {
+      "command": "python",
+      "args": [
+        "-u",
+        "tools/mcp/scaffold_domain_server.py"
+      ],
+      "description": "Stdio MCP server exposing scaffold_domain(domain_name, core_guid)."
+    }
+  }
+}

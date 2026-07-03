@@ -1,0 +1,29 @@
+{
+  "instructions": [
+    "docs/architecture/core_paradigm.md"
+  ],
+  "routes": [
+    {
+      "pattern": "MoonGame/Assets/Scripts/Domains/Combat/**/*",
+      "load": "docs/domains/combat_rules.md"
+    },
+    {
+      "pattern": "MoonGame/Assets/Scripts/Domains/Inventory/**/*",
+      "load": "docs/domains/inventory_rules.md"
+    },
+    {
+      "pattern": "MoonGame/Assets/Scripts/Domains/Player/**/*",
+      "load": "docs/architecture/decisions/ADR-0001-player-controller.md"
+    }
+  ],
+  "operational_rules": [
+    "The Unity project root is MoonGame/.",
+    "Runtime scripts live under MoonGame/Assets/Scripts/.",
+    "Shared infrastructure lives under MoonGame/Assets/Scripts/Core/.",
+    "Gameplay domains live under MoonGame/Assets/Scripts/Domains/<Domain>/.",
+    "Each domain should have API, Internal, and UI subfolders.",
+    "Domains may reference Core only; domains must not reference each other directly.",
+    "Use the Core event bus for cross-domain communication.",
+    "Use the scaffold_domain tool when creating a new gameplay domain."
+  ]
+}
